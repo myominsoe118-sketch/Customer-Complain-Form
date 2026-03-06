@@ -114,7 +114,7 @@
 
         <div id="sideCodeArea" class="form-group">
             <label>Side Code / Customer ID</label>
-            <input type="text" id="sideCode" placeholder="HTN-BL-1234">
+            <input type="text" id="sideCode" placeholder="HTN-BL-0013">
         </div>
 
         <div class="form-group">
@@ -123,13 +123,13 @@
         </div>
 
         <div class="form-group">
-            <label>ဖုန်းနံပါတ် (Phone Number)</label>
-            <input type="tel" id="userPhone" placeholder="09xxxxxxxxx">
+            <label>နေရပ်လိပ်စာ (Address)</label>
+            <textarea id="userAddress" rows="2" placeholder="နေရပ်လိပ်စာ..."></textarea>
         </div>
 
         <div class="form-group">
-            <label>နေရပ်လိပ်စာ (Address)</label>
-            <textarea id="userAddress" rows="2" placeholder="နေရပ်လိပ်စာ..."></textarea>
+            <label>ဖုန်းနံပါတ် (Phone Number)</label>
+            <input type="tel" id="userPhone" placeholder="09xxxxxxxxx">
         </div>
 
         <div id="issueTypeArea" class="form-group">
@@ -138,7 +138,7 @@
                 <option value="No Internet">လိုင်းမရပါ (No Internet)</option>
                 <option value="Slow Speed">လိုင်းနှေးနေပါ (Slow Speed)</option>
                 <option value="LOS Red Light">မီးနီပြနေပါ (LOS)</option>
-                <option value="Billing">ငွေပေးချေမှုဆိုင်ရာ (Billing)</option>
+                <option value="Billing">Billing</option>
             </select>
         </div>
 
@@ -172,8 +172,8 @@
     const type = document.getElementById('formType').value;
     const sideCode = (type === 'Complain') ? document.getElementById('sideCode').value : "New User";
     const name = document.getElementById('userName').value;
-    const phone = document.getElementById('userPhone').value;
     const address = document.getElementById('userAddress').value;
+    const phone = document.getElementById('userPhone').value;
     const issue = (type === 'Complain') ? document.getElementById('issueType').value : "New Installation";
 
     if(!name || !phone) {
@@ -181,16 +181,16 @@
       return;
     }
 
-    // Viber အတွက် ခေါင်းစဉ်တွေဖြုတ်ပြီး စာသားသက်သက်ပဲ ပြင်ဆင်ခြင်း
+    // Viber Message ကို သင်အလိုရှိတဲ့ အစဉ်လိုက်အတိုင်း ပြင်ဆင်ခြင်း
     let message = "";
     if (type === 'Complain') {
-        message = `--- ${type} ---%0A${sideCode}%0A${name}%0A${phone}%0A${address}%0A${issue}`;
+        message = `--- ${type} ---%0A${sideCode}%0A${name}%0A${address}%0A${phone}%0A${issue}`;
     } else {
-        message = `--- ${type} ---%0A${name}%0A${phone}%0A${address}`;
+        message = `--- ${type} ---%0A${name}%0A${address}%0A${phone}`;
     }
     
     // Google Sheet သို့ ပို့ရန်
-    const formData = new URLSearchParams();
+    const formData = new FormData();
     formData.append('type', type);
     formData.append('sideCode', sideCode);
     formData.append('name', name);
