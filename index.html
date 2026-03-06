@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanthar Net - Customer Support Portal</title>
+    <style>
+        :root { 
+            --hanthar-red: #ee0000; 
+            --viber-color: #7360f2; 
+            --bg-color: #f4f6f9; 
+        }
+        body { 
+            font-family: 'Pyidaungsu', sans-serif; 
+            background-color: var(--bg-color);
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Size တူအောင် ချိန်ညှိထားတဲ့ Wrapper */
+        .stack-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 25px;
+        }
+
+        /* အနောက်က အနီရောင်စာရွက် (Size အတူတူပဲ ထားထားပါတယ်) */
+        .red-background {
+            position: absolute;
+            top: -15px; /* အပေါ်ကို ၁၅ ပစ်ဇယ် ပေါ်နေမှာပါ */
+            left: 0;
+            background-color: var(--hanthar-red);
+            width: 100%; /* အဖြူရောင်နဲ့ Size တူအောင် 100% ထားလိုက်ပါတယ် */
+            height: 100px; /* အပေါ်ပိုင်းပဲ ပေါ်ရုံမို့လို့ အမြင့်ကို ကန့်သတ်ထားပါတယ် */
+            border-radius: 15px;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(238, 0, 0, 0.2);
+        }
+
+        /* အပေါ်က အဖြူရောင် Form */
+        .form-container { 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 15px; 
+            position: relative;
+            z-index: 2; /* အနီရောင်ရဲ့ အပေါ်မှာ ရှိနေစေရန် */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+        
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { color: var(--hanthar-red); margin: 0; font-size: 26px; font-weight: bold; }
+        .header p { color: #666; font-size: 14px; margin-top: 5px; font-weight: bold; }
+        
+        .type-selector {
+            background: #f1f3f4;
+            padding: 4px;
+            border-radius: 10px;
+            display: flex;
+            margin-bottom: 25px;
+        }
+        .type-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+            color: #555;
+        }
+        .type-option.active {
+            background: #fff;
+            color: var(--hanthar-red);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; font-weight: bold; color: #333; font-size: 13px; }
+        input, select, textarea { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            box-sizing: border-box; font-size: 14px; outline: none; transition: 0.3s; 
+        }
+        input:focus { border-color: var(--hanthar-red); }
+        
+        .viber-btn { 
+            width: 100%; background: var(--viber-color); color: #fff; border: none; 
+            padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; 
+            cursor: pointer; transition: 0.2s; margin-top: 10px; 
+        }
+        .viber-btn:active { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+
+<div class="stack-wrapper">
+    <div class="red-background"></div>
+    
+    <div class="form-container">
+        <div class="header">
+            <h2>Hanthar Net</h2>
+            <p>Customer Support Portal</p>
+        </div>
+
+        <div class="type-selector">
+            <div class="type-option active" onclick="setType('Complain', this)">Complain</div>
+            <div class="type-option" onclick="setType('New Customer', this)">New Customer</div>
+        </div>
+        
+        <input type="hidden" id="formType" value="Complain">
+
+        <div id="sideCodeArea" class="form-group">
+            <label>Side Code / Customer ID</label>
+            <input type="text" id="sideCode" placeholder="HTN-BL-1234">
+        </div>
+
+        <div class="form-group">
+            <label>အမည် (Name)</label>
+            <input type="text" id="userName" placeholder="အမည် ရိုက်ထည့်ပါ">
+        </div>
+
+        <div class="form-group">
+            <label>ဖုန်းနံပါတ် (Phone Number)</label>
+            <input type="tel" id="userPhone" placeholder="09xxxxxxxxx">
+        </div>
+
+        <div class="form-group">
+            <label>နေရပ်လိပ်စာ (Address)</label>
+            <textarea id="userAddress" rows="2" placeholder="နေရပ်လိပ်စာ..."></textarea>
+        </div>
+
+        <div id="issueTypeArea" class="form-group">
+            <label>ပြဿနာအမျိုးအစား (Issue Type)</label>
+            <select id="issueType">
+                <option value="No Internet">လိုင်းမရပါ (No Internet)</option>
+                <option value="Slow Speed">လိုင်းနှေးနေပါ (Slow Speed)</option>
+                <option value="LOS Red Light">မီးနီပြနေပါ (LOS)</option>
+                <option value="Billing">ငွေပေးချေမှုဆိုင်ရာ (Billing)</option>
+            </select>
+        </div>
+
+        <button class="viber-btn" onclick="sendToViber()">Send to Viber</button>
+    </div>
+</div>
+
+<script>
+  // Web App URL ထည့်ရန် မမေ့ပါနဲ့
+  const scriptURL = 'သင်ကူးထားတဲ့_Web_App_URL_ကို_ဒီမှာထည့်ပါ'; 
+
+  function setType(type, element) {
+      document.getElementById('formType').value = type;
+      
+      const options = document.querySelectorAll('.type-option');
+      options.forEach(opt => opt.classList.remove('active'));
+      element.classList.add('active');
+
+      const sideCodeArea = document.getElementById('sideCodeArea');
+      const issueTypeArea = document.getElementById('issueTypeArea');
+
+      if (type === 'New Customer') {
+          sideCodeArea.style.display = 'none';
+          issueTypeArea.style.display = 'none';
+      } else {
+          sideCodeArea.style.display = 'block';
+          issueTypeArea.style.display = 'block';
+      }
+  }
+
+  function sendToViber() {
+    const type = document.getElementById('formType').value;
+    const sideCode = (type === 'Complain') ? document.getElementById('sideCode').value : "New User";
+    const name = document.getElementById('userName').value;
+    const phone = document.getElementById('userPhone').value;
+    const address = document.getElementById('userAddress').value;
+    const issue = (type === 'Complain') ? document.getElementById('issueType').value : "New Installation";
+
+    if(!name || !phone) {
+      alert("အမည်နှင့် ဖုန်းနံပါတ် ဖြည့်ပေးပါ ခင်ဗျာ။");
+      return;
+    }
+
+    const message = `--- ${type} ---%0A%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}${type === 'Complain' ? '%0ASide Code: ' + sideCode + '%0AIssue: ' + issue : ''}`;
+    
+    const formData = new FormData();
+    formData.append('type', type);
+    formData.append('sideCode', sideCode);
+    formData.append('name', name);
+    formData.append('phone', phone);
+    formData.append('address', address);
+    formData.append('issue', issue);
+
+    fetch(scriptURL, { method: 'POST', body: formData})
+      .then(response => console.log('Success!'))
+      .catch(error => console.error('Error!'));
+
+    window.location.href = `viber://forward?text=${message}`;
+  }
+</script>
+
+</body>
+</html>
