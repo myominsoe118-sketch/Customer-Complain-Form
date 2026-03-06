@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* Size တူအောင် ချိန်ညှိထားတဲ့ Wrapper */
         .stack-wrapper {
             position: relative;
             width: 100%;
@@ -29,26 +28,24 @@
             margin-top: 25px;
         }
 
-        /* အနောက်က အနီရောင်စာရွက် (Size အတူတူပဲ ထားထားပါတယ်) */
         .red-background {
             position: absolute;
-            top: -15px; /* အပေါ်ကို ၁၅ ပစ်ဇယ် ပေါ်နေမှာပါ */
+            top: -15px; 
             left: 0;
             background-color: var(--hanthar-red);
-            width: 100%; /* အဖြူရောင်နဲ့ Size တူအောင် 100% ထားလိုက်ပါတယ် */
-            height: 100px; /* အပေါ်ပိုင်းပဲ ပေါ်ရုံမို့လို့ အမြင့်ကို ကန့်သတ်ထားပါတယ် */
+            width: 100%; 
+            height: 100px; 
             border-radius: 15px;
             z-index: 1;
             box-shadow: 0 5px 15px rgba(238, 0, 0, 0.2);
         }
 
-        /* အပေါ်က အဖြူရောင် Form */
         .form-container { 
             background: #fff; 
             padding: 30px; 
             border-radius: 15px; 
             position: relative;
-            z-index: 2; /* အနီရောင်ရဲ့ အပေါ်မှာ ရှိနေစေရန် */
+            z-index: 2; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             border: 1px solid #eee;
         }
@@ -150,7 +147,6 @@
 </div>
 
 <script>
-  // Web App URL ထည့်ရန် မမေ့ပါနဲ့
   const scriptURL = 'https://script.google.com/macros/s/AKfycbyef00BFU1Lzv6Tj1-aXNN2e-vS3PXtXrUZ-9g9TaaFOGhQi8YbDKFuG_tjjYy2t-eR/exec'; 
 
   function setType(type, element) {
@@ -185,9 +181,16 @@
       return;
     }
 
-    const message = `--- ${type} ---%0A%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}${type === 'Complain' ? '%0ASide Code: ' + sideCode + '%0AIssue: ' + issue : ''}`;
+    // Viber အတွက် ခေါင်းစဉ်တွေဖြုတ်ပြီး စာသားသက်သက်ပဲ ပြင်ဆင်ခြင်း
+    let message = "";
+    if (type === 'Complain') {
+        message = `--- ${type} ---%0A${sideCode}%0A${name}%0A${phone}%0A${address}%0A${issue}`;
+    } else {
+        message = `--- ${type} ---%0A${name}%0A${phone}%0A${address}`;
+    }
     
-    const formData = new FormData();
+    // Google Sheet သို့ ပို့ရန်
+    const formData = new URLSearchParams();
     formData.append('type', type);
     formData.append('sideCode', sideCode);
     formData.append('name', name);
@@ -196,13 +199,13 @@
     formData.append('issue', issue);
 
     fetch(scriptURL, { method: 'POST', body: formData})
-      .then(response => console.log('Success!'))
-      .catch(error => console.error('Error!'));
+      .then(response => console.log('Sheet Success!'))
+      .catch(error => console.error('Sheet Error!', error));
 
+    // Viber သို့ Forward လုပ်ရန်
     window.location.href = `viber://forward?text=${message}`;
   }
 </script>
 
 </body>
-
 </html>
