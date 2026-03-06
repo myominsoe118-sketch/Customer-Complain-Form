@@ -3,106 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanthar Net - Customer Support Portal</title>
+    <title>Hanthar Net - Support Portal</title>
     <style>
-        :root { 
-            --hanthar-red: #ee0000; 
-            --viber-color: #7360f2; 
-            --bg-color: #f4f6f9; 
-        }
-        body { 
-            font-family: 'Pyidaungsu', sans-serif; 
-            background-color: var(--bg-color);
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .stack-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 25px;
-        }
-
-        .red-background {
-            position: absolute;
-            top: -15px; 
-            left: 0;
-            background-color: var(--hanthar-red);
-            width: 100%; 
-            height: 100px; 
-            border-radius: 15px;
-            z-index: 1;
-            box-shadow: 0 5px 15px rgba(238, 0, 0, 0.2);
-        }
-
-        .form-container { 
-            background: #fff; 
-            padding: 30px; 
-            border-radius: 15px; 
-            position: relative;
-            z-index: 2; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
-        }
-        
+        :root { --hanthar-red: #ee0000; --viber-color: #7360f2; --bg-color: #f4f6f9; }
+        body { font-family: 'Pyidaungsu', sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .stack-wrapper { position: relative; width: 100%; max-width: 400px; margin-top: 25px; }
+        .red-background { position: absolute; top: -15px; left: 0; background-color: var(--hanthar-red); width: 100%; height: 100px; border-radius: 15px; z-index: 1; }
+        .form-container { background: #fff; padding: 30px; border-radius: 15px; position: relative; z-index: 2; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #eee; }
         .header { text-align: center; margin-bottom: 25px; }
         .header h2 { color: var(--hanthar-red); margin: 0; font-size: 26px; font-weight: bold; }
-        .header p { color: #666; font-size: 14px; margin-top: 5px; font-weight: bold; }
-        
-        .type-selector {
-            background: #f1f3f4;
-            padding: 4px;
-            border-radius: 10px;
-            display: flex;
-            margin-bottom: 25px;
-        }
-        .type-option {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            transition: 0.3s;
-            color: #555;
-        }
-        .type-option.active {
-            background: #fff;
-            color: var(--hanthar-red);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
+        .type-selector { background: #f1f3f4; padding: 4px; border-radius: 10px; display: flex; margin-bottom: 25px; }
+        .type-option { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 8px; font-size: 13px; font-weight: bold; transition: 0.3s; color: #555; }
+        .type-option.active { background: #fff; color: var(--hanthar-red); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; font-weight: bold; color: #333; font-size: 13px; }
-        input, select, textarea { 
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
-            box-sizing: border-box; font-size: 14px; outline: none; transition: 0.3s; 
-        }
-        input:focus { border-color: var(--hanthar-red); }
-        
-        .viber-btn { 
-            width: 100%; background: var(--viber-color); color: #fff; border: none; 
-            padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; 
-            cursor: pointer; transition: 0.2s; margin-top: 10px; 
-        }
-        .viber-btn:active { transform: scale(0.97); }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; outline: none; }
+        .viber-btn { width: 100%; background: var(--viber-color); color: #fff; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="stack-wrapper">
     <div class="red-background"></div>
-    
     <div class="form-container">
         <div class="header">
             <h2>Hanthar Net</h2>
-            <p>Customer Support Portal</p>
+            <p style="color: #666; font-size: 13px; margin-top: 5px; font-weight: bold;">Support Portal</p>
         </div>
 
         <div class="type-selector">
@@ -138,11 +64,11 @@
                 <option value="No Internet">လိုင်းမရပါ (No Internet)</option>
                 <option value="Slow Speed">လိုင်းနှေးနေပါ (Slow Speed)</option>
                 <option value="LOS Red Light">မီးနီပြနေပါ (LOS)</option>
-                <option value="Billing">Billing</option>
+                <option value="Billing">ငွေပေးချေမှုဆိုင်ရာ (Billing)</option>
             </select>
         </div>
 
-        <button class="viber-btn" onclick="sendToViber()">Send to Viber</button>
+        <button class="viber-btn" onclick="sendToViber()">Send to Viber & Sheet</button>
     </div>
 </div>
 
@@ -151,9 +77,7 @@
 
   function setType(type, element) {
       document.getElementById('formType').value = type;
-      
-      const options = document.querySelectorAll('.type-option');
-      options.forEach(opt => opt.classList.remove('active'));
+      document.querySelectorAll('.type-option').forEach(opt => opt.classList.remove('active'));
       element.classList.add('active');
 
       const sideCodeArea = document.getElementById('sideCodeArea');
@@ -176,21 +100,18 @@
     const phone = document.getElementById('userPhone').value;
     const issue = (type === 'Complain') ? document.getElementById('issueType').value : "New Installation";
 
-    if(!name || !phone) {
-      alert("အမည်နှင့် ဖုန်းနံပါတ် ဖြည့်ပေးပါ ခင်ဗျာ။");
-      return;
-    }
+    if(!name || !phone) { alert("အမည်နှင့် ဖုန်းနံပါတ် ဖြည့်ပေးပါ ခင်ဗျာ။"); return; }
 
-    // Viber Message ကို သင်အလိုရှိတဲ့ အစဉ်လိုက်အတိုင်း ပြင်ဆင်ခြင်း
-    let message = "";
+    // Viber Message Format
+    let viberMessage = "";
     if (type === 'Complain') {
-        message = `--- ${type} ---%0A${sideCode}%0A${name}%0A${address}%0A${phone}%0A${issue}`;
+        viberMessage = `--- ${type} ---%0A${sideCode}%0A${name}%0A${address}%0A${phone}%0A${issue}`;
     } else {
-        message = `--- ${type} ---%0A${name}%0A${address}%0A${phone}`;
+        viberMessage = `--- New Customer ---%0A${name}%0A${address}%0A${phone}`;
     }
     
     // Google Sheet သို့ ပို့ရန်
-    const formData = new FormData();
+    const formData = new URLSearchParams();
     formData.append('type', type);
     formData.append('sideCode', sideCode);
     formData.append('name', name);
@@ -202,8 +123,7 @@
       .then(response => console.log('Sheet Success!'))
       .catch(error => console.error('Sheet Error!', error));
 
-    // Viber သို့ Forward လုပ်ရန်
-    window.location.href = `viber://forward?text=${message}`;
+    window.location.href = `viber://forward?text=${viberMessage}`;
   }
 </script>
 
